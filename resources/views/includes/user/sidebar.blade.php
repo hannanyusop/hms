@@ -4,12 +4,12 @@
         <a href="index.html" class="logo">
             <!-- logo-->
             <div class="logo-mini w-50">
-                <span class="light-logo"><img src="../assets/images/logo-letter.png" alt="logo"></span>
-                <span class="dark-logo"><img src="../assets/images/logo-letter.png" alt="logo"></span>
+                <span class="light-logo"><img src="{{ asset('assets/images/logo-letter.png') }}" alt="logo"></span>
+                <span class="dark-logo"><img src="{{ asset('assets/images/logo-letter.png') }}" alt="logo"></span>
             </div>
             <div class="logo-lg">
-                <span class="light-logo"><img src="../assets/images/logo-dark-text.png" alt="logo"></span>
-                <span class="dark-logo"><img src="../assets/images/logo-light-text.png" alt="logo"></span>
+                <span class="light-logo"><img src="{{ asset('assets/images/logo-dark-text.png') }}" alt="logo"></span>
+                <span class="dark-logo"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo"></span>
             </div>
         </a>
     </div>
@@ -33,16 +33,24 @@
                     <a href="#" class="waves-effect waves-light dropdown-toggle w-auto l-h-12 bg-transparent p-0 no-shadow" data-bs-toggle="dropdown" title="User">
                         <div class="d-flex pt-1">
                             <div class="text-end me-10">
-                                <p class="pt-5 fs-14 mb-0 fw-700 text-primary">Johen Doe</p>
+                                <p class="pt-5 fs-14 mb-0 fw-700 text-primary">{{ auth()->user()->name }}</p>
                                 <small class="fs-10 mb-0 text-uppercase text-mute">Admin</small>
                             </div>
-                            <img src="../assets/images/avatar/avatar-1.png" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
+                            <img src="{{ asset('assets/images/avatar/avatar-1.png') }}" class="avatar rounded-10 bg-primary-light h-40 w-40" alt="" />
                         </div>
                     </a>
                     <ul class="dropdown-menu animated flipInX">
                         <li class="user-body">
                             <a class="dropdown-item" href="extra_profile.html"><i class="ti-user text-muted me-2"></i> Profile</a>
-                            <a class="dropdown-item" href="../login.php"><i class="ti-lock text-muted me-2"></i> Logout</a>
+                            <x-utils.link
+                                class="dropdown-item"
+                                icon="ti-lock text-muted me-2"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <x-slot name="text">
+                                    @lang('Logout')
+                                    <x-forms.post :action="route('frontend.auth.logout')" id="logout-form" class="d-none" />
+                                </x-slot>
+                            </x-utils.link>
                         </li>
                     </ul>
                 </li>
@@ -138,9 +146,7 @@
                         <a href="#">
                             <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
                             <span>Dashboard</span>
-                            <span class="pull-right-container">
-					  <i class="fa fa-angle-right pull-right"></i>
-					</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Patients Dashboard</a></li>
@@ -155,13 +161,24 @@
                         </a>
                     </li>
                     <li class="header">Components</li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+                            <span>{{ __('Patient') }}</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ route('patient.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ __('List') }}</a></li>
+                            <li><a href="{{ route('patient.create') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ __('Register') }}</a></li>
+                        </ul>
+                    </li>
+
                     <li class="treeview">
                         <a href="#">
                             <i class="icon-Library"><span class="path1"></span><span class="path2"></span></i>
                             <span>Features</span>
-                            <span class="pull-right-container">
-					  <i class="fa fa-angle-right pull-right"></i>
-					</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
                             <li class="treeview">

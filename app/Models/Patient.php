@@ -13,4 +13,9 @@ class Patient extends Model
         return $this->hasMany(PatientHasHeir::class, 'patient_id', 'id');
     }
 
+    public function getIdentityNumberAttribute(){
+
+        return $this->no_ic ?? $this->no_passport;
+    }
+
 }

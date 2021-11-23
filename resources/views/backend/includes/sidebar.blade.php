@@ -17,6 +17,16 @@
                 icon="c-sidebar-nav-icon cil-speedometer"
                 :text="__('Dashboard')" />
         </li>
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route('disease.index') }}" class="c-sidebar-nav-link">
+                <i class="c-sidebar-nav-icon cil-speedometer"></i> {{ __('Diseases Management') }}
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route('drug.index') }}" class="c-sidebar-nav-link">
+                <i class="c-sidebar-nav-icon cil-speedometer"></i> {{ __('Drugs Management') }}
+            </a>
+        </li>
 
         @if (
             $logged_in_user->hasAllAccess() ||

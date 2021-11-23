@@ -89,13 +89,13 @@ class Hms extends Migration
             $table->id();
             $table->string('card_no', 10)->unique();
             $table->string('name', 255);
-            $table->string('no_ic', 255)->unique();
+            $table->string('no_ic', 255)->nullable();
             $table->date('dob');
-            $table->string('no_passport', 255)->unique();
+            $table->string('no_passport', 255)->nullable();
             $table->string('no_phone', 20);
             $table->integer('nationality');
-            $table->text('allergies_information');
-            $table->text('diseases_history');
+            $table->text('allergies_information')->nullable();
+            $table->text('diseases_history')->nullable();
             $table->timestamps();
         });
 
@@ -114,7 +114,7 @@ class Hms extends Migration
             $table->id();
             $table->string('code', 50)->unique();
             $table->string('name', 255);
-            $table->text('remark');
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }

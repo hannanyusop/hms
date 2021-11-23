@@ -20,11 +20,11 @@ class PatientStoreRequest extends FormRequest
     {
         return [
             'name'                  => 'required',
-            'no_ic'                 => 'required',
+            'no_ic'                 => 'sometimes|regex:/^\d{6}-\d{2}-\d{4}$/',
             'no_passport'           => 'required_without:no_ic',
-            'dob'                   => 'required',
+            'dob'                   => 'required|date|after:today',
             'no_phone'              => 'required',
-            'nationality'           => 'required',
+            'nationality'           => 'required|numeric',
             'allergies_information' => '',
             'diseases_history'      => ''
         ];
