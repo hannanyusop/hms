@@ -1,4 +1,4 @@
-## Laravel Boilerplate (Current: Laravel 8.*) ([Demo](https://demo.laravel-boilerplate.com))
+HOSPITAL MANAGEMENT SYSTEM
 
 Set Enviroment file
 ```angular2html
