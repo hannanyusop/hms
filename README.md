@@ -1,8 +1,13 @@
 HOSPITAL MANAGEMENT SYSTEM
 
-Set Enviroment file
+Set Environment file
 ```angular2html
 Copy .env.example as .env
+```
+
+Generate App key
+```
+php artisan key:generate
 ```
 
 Install required dependency
@@ -15,12 +20,12 @@ Migrating table (Make sure you already created database name 'hms_live')
 php artisan migrate
 ```
 
-Inserting intial data to database
+Seeding data to database
 ```
 php artisan db:seed
 ```
 
-insraling node dependecy
+Install node dependency
 ```angular2html
 npm install
 ```

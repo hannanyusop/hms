@@ -91,8 +91,9 @@ class Hms extends Migration
             $table->string('name', 255);
             $table->string('no_ic', 255)->unique();
             $table->date('dob');
-            $table->string('passport_number', 255)->unique();
-            $table->string('phone_number', 20);
+            $table->string('no_passport', 255)->unique();
+            $table->string('no_phone', 20);
+            $table->integer('nationality');
             $table->text('allergies_information');
             $table->text('diseases_history');
             $table->timestamps();
@@ -100,10 +101,11 @@ class Hms extends Migration
 
         Schema::create('patient_has_heirs', function (Blueprint $table){
             $table->id();
+            $table->integer('patient_id');
             $table->integer('registered_id')->nullable();
             $table->string('name', 255);
             $table->string('relation');
-            $table->string('phone_number', 20);
+            $table->string('no_phone', 20);
             $table->date('dob');
             $table->timestamps();
         });
