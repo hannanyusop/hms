@@ -145,17 +145,28 @@
                     <li class="treeview">
                         <a href="#">
                             <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-                            <span>Dashboard</span>
+                            <span>Appointment</span>
                             <span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Patients Dashboard</a></li>
-                            <li><a href="index2.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Doctor Dashboard</a></li>
-                            <li><a href="index3.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Hospital Dashboard</a></li>
+                            <li><a href="{{ route('appointment.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>List</a></li>
+                            <li><a href="{{ route('appointment.create') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ __('Create') }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+                            <span>QMS</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ route('qms.doctor-call') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ __('Doctor Call') }}</a></li>
+                            <li><a href="{{ route('qms.pharmacy-call') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ __('Pharmacy Call') }}</a></li>
+                            <li><a href="{{ route('qms.screen') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ __('Screen') }}</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="appointments.html">
+                        <a href="{{ route('appointment.create') }}">
                             <i class="icon-Barcode-read"><span class="path1"></span><span class="path2"></span></i>
                             <span>Appointments</span>
                         </a>

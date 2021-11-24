@@ -12,6 +12,12 @@
     </x-utils.alert>
 @endif
 
+@if(session()->get('success'))
+    <x-utils.alert type="success" class="header-message">
+        {{ session()->get('success') }}
+    </x-utils.alert>
+@endif
+
 @if(session()->get('flash_warning'))
     <x-utils.alert type="warning" class="header-message">
         {{ session()->get('flash_warning') }}
@@ -27,6 +33,12 @@
 @if(session()->get('flash_danger'))
     <x-utils.alert type="danger" class="header-message">
         {{ session()->get('flash_danger') }}
+    </x-utils.alert>
+@endif
+
+@if(session()->get('error'))
+    <x-utils.alert type="danger" class="header-message">
+        {{ session()->get('error') }}
     </x-utils.alert>
 @endif
 
