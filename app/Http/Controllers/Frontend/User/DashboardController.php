@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
+use App\Services\AppointmentService;
+
 /**
  * Class DashboardController.
  */
@@ -12,6 +14,9 @@ class DashboardController
      */
     public function index()
     {
-        return view('home.dashboard');
+        $doctorPending = AppointmentService::doctorPending();
+        $myActive      = AppointmentService::myActive();
+
+        return view('home.dashboard', compact('doctorPending', 'myActive'));
     }
 }

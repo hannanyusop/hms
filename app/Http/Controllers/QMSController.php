@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Services\QmsService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,26 @@ class QMSController extends Controller
         $check->update(['checked_by' => auth()->user()->id]);
         #qms service calling
         return redirect()->back()->with('success', __('Your patient queue number is :qms', ['qms' => $check->qms_format]));
+    }
+
+    public function recall(){
+
+        $check = Appointment::where([
+            ['checked_by', '!=', null],
+        ])
+            ->where('checked_by', auth()->user()->id)
+            ->whereDate('created_at', Carbon::today())
+            ->orderBy('qms_no', 'ASC')
+            ->first();
+
+        if(!$check){
+            return redirect()->back()->with('error', __('No active appointment!'));
+        }
+
+        QmsService::insert("$check->qms_format Bilik 5");
+
+        return redirect()->back()->with('success', __('Calling for :qms', ['qms' => $check->qms_format]));
+
     }
 
     public function pharmacyCall(){

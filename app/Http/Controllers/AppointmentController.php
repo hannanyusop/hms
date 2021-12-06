@@ -6,11 +6,17 @@ use App\Http\Requests\Appointment\AppointmentStoreRequest;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Services\AppointmentService;
+use App\Services\QmsService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+    public function index(){
+
+        $appointments = Appointment::where('created_at', Carbon::today())->get();
+        return view('appointment.index', compact('appointments'));
+    }
     public function today(){
 
         $appointments = Appointment::where('created_at', Carbon::today())->get();
@@ -43,6 +49,22 @@ class AppointmentController extends Controller
         $appointment->qms_no     = AppointmentService::getQMS();
         $appointment->save();
         return redirect()->back()->with('success', __('Queue Number is :qms', ['qms' => $appointment->qms_format]));
+    }
+
+    public function check($id){
+
+        $appointment = Appointment::where([
+            'checked_by' => auth()->user()->id
+        ])
+//            ->whereDate('created_at', Carbon::today())
+//            ->orderBy('qms_no', 'ASC')
+            ->find(decrypt($id));
+
+        if(!$appointment){
+            return redirect()->back()->with('error', __('Invalid appointment.'));
+        }
+
+        return view('appointment.check', compact('appointment'));
     }
 
 }

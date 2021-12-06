@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,14 @@ class Patient extends Model
     public function getIdentityNumberAttribute(){
 
         return $this->no_ic ?? $this->no_passport;
+    }
+
+    public function getCardNoFormatAttribute(){
+        return str_pad($this->card_no, 8, '0', STR_PAD_LEFT);
+    }
+
+    public function getAgeAttribute(){
+        return Carbon::parse($this->dob)->diffInMonths(Carbon::today());
     }
 
 }

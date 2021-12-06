@@ -17,4 +17,8 @@ class Appointment extends Model
     public function getQmsFormatAttribute(){
         return str_pad($this->qms_no, 4, 0, STR_PAD_LEFT);
     }
+
+    public function patient(){
+        return $this->hasOne(Patient::class,'id', 'patient_id');
+    }
 }

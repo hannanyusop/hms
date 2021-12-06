@@ -20,6 +20,12 @@ Route::group([
     Route::resource('drug', DrugController::class);
 
     Route::resource('appointment', AppointmentController::class);
+    Route::group([
+        'as' => 'appointment.',
+        'prefix' => 'appointments/'
+    ], function (){
+        Route::get('check/{id}', [AppointmentController::class, 'check'])->name('check');
+    });
 
 
     Route::group([
@@ -30,6 +36,7 @@ Route::group([
         Route::get('screen', [QMSController::class, 'screen'])->name('screen');
         Route::get('doctor-call', [QMSController::class, 'doctorCall'])->name('doctor-call');
         Route::get('pharmacy-call', [QMSController::class, 'pharmacyCall'])->name('pharmacy-call');
+        Route::get('recall', [QMSController::class, 'recall'])->name('recall');
 
 
     });

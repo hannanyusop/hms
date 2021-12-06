@@ -9,6 +9,26 @@ use Illuminate\Support\Str;
 
 class AppointmentService
 {
+    public static function myActive(){
+
+        return Appointment::where([
+            'checked_by' => auth()->user()->id
+        ])
+            ->whereDate('created_at', Carbon::today())
+            ->orderBy('qms_no', 'ASC')
+            ->get();
+
+    }
+    public static function doctorPending(){
+
+        return Appointment::where([
+            'checked_by' => null
+        ])
+            ->whereDate('created_at', Carbon::today())
+            ->orderBy('qms_no', 'ASC')
+            ->get();
+
+    }
     public static function getCode(){
 
         do{
@@ -20,7 +40,6 @@ class AppointmentService
 
 
         return $code;
-
     }
 
     public static function getQMS(){

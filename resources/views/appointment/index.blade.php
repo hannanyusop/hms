@@ -1,60 +1,44 @@
 @extends('layouts.user')
 
-@section('title', __('Registered Patients'))
+@section('module', __('Appointment'))
+@section('title', __('List'))
 
 @section('content')
-    <div class="table-responsive">
-        <table id="dtable" class="table table-striped table-bordered display" style="width:100%">
-            <thead>
-            <tr>
-                <th rowspan="2">Name</th>
-                <th colspan="3">Biodata</th>
-                <th colspan="2">Medical History</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-                <th>Identity Number</th>
-                <th>DOB</th>
-                <th>Phone</th>
-                <th>Registered On</th>
-                <th>Last Appointment</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($patients as $patient)
-                <tr>
-                    <td>{{ $patient->name }}</td>
-                    <td>{{ $patient->identity_number }}</td>
-                    <td>{{ $patient->dob }}</td>
-                    <td>{{ $patient->no_phone }}</td>
-                    <td>{{ $patient->created_at }}</td>
-                    <td>{{ "" }}</td>
-                    <th>
-                        <div class="btn-group mb-5">
-                            <button type="button" class="waves-effect waves-light btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">{{ __('Action') }}</button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('patient.show', encrypt($patient->id)) }}">{{ __('View') }}</a>
-                                <a class="dropdown-item" href="{{ route('patient.edit', encrypt($patient->id)) }}">{{ __('Edit') }}</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
+    <div class="specialist-slider segments">
+        <div class="container">
+            <div class="section-title">
+                <h3>Specialities
+                    <a href="search-doctor.html" class="see-all-link">View All</a>
+                </h3>
+            </div>
+            <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
+                <div class="swiper-wrapper" style="transform: translate3d(-313px, 0px, 0px); transition-duration: 0ms;">
+                    <div class="swiper-slide" style="margin-right: 15px;">
+                        <div class="content">
+                            <img src="assets/images/kidneys.svg" alt="">
+                            <div class="text">
+                                <a href="#">Today</a>
                             </div>
                         </div>
-                    </th>
-                </tr>
-            @endforeach
-            </tbody>
-            <tfoot>
-            <tr>
-                <th>Identity Number</th>
-                <th>DOB</th>
-                <th>Phone</th>
-                <th>Registered On</th>
-                <th>Last Appointment</th>
-                <th></th>
-            </tr>
-            </tfoot>
-        </table>
+                    </div>
+                    <div class="swiper-slide" style="margin-right: 15px;">
+                        <div class="content">
+                            <img src="assets/images/brain.svg" alt="">
+                            <div class="text">
+                                <a href="#">All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="margin-right: 15px;">
+                        <div class="content">
+                            <img src="assets/images/brain.svg" alt="">
+                            <div class="text">
+                                <a href="{{ route('appointment.create') }}">New</a>
+                            </div>
+                        </div>
+                    </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+        </div>
     </div>
 @endsection
 @push('after-scripts')
