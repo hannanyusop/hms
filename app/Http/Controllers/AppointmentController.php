@@ -54,10 +54,9 @@ class AppointmentController extends Controller
     public function check($id){
 
         $appointment = Appointment::where([
-            'checked_by' => auth()->user()->id
+            'checked_by'       => auth()->user()->id,
+            'completed_status' => 0
         ])
-//            ->whereDate('created_at', Carbon::today())
-//            ->orderBy('qms_no', 'ASC')
             ->find(decrypt($id));
 
         if(!$appointment){
@@ -65,6 +64,55 @@ class AppointmentController extends Controller
         }
 
         return view('appointment.check', compact('appointment'));
+    }
+
+    public function checkCompleted($id){
+
+        $appointment = Appointment::where([
+            'checked_by'       => auth()->user()->id,
+            'completed_status' => 0
+        ])->find(decrypt($id));
+
+
+        if(!$appointment){
+            return redirect()->back()->with('error', __('Invalid appointment.'));
+        }
+
+        $appointment->completed_status = 1;
+        $appointment->save();
+
+        return  redirect()->route('frontend.user.dashboard')->with('success', __('Appointment successful'));
+    }
+
+    public function pharmacy($id){
+
+        $appointment = Appointment::where([
+            'checked_by'       => auth()->user()->id,
+            'completed_status' => 1
+        ])->find(decrypt($id));
+
+        if(!$appointment){
+            return redirect()->back()->with('error', __('Invalid appointment.'));
+        }
+
+        return view('appointment.check', compact('appointment'));
+    }
+
+    public function pharmacyCompleted($id){
+
+        $appointment = Appointment::where([
+            'checked_by'       => auth()->user()->id,
+            'completed_status' => 1
+        ])->find(decrypt($id));
+
+        if(!$appointment){
+            return redirect()->back()->with('error', __('Invalid appointment.'));
+        }
+
+        $appointment->completed_status = 2;
+        $appointment->save();
+
+        return  redirect()->back()->with('success', __('Appointment successful'));
     }
 
 }

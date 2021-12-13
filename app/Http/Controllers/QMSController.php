@@ -40,7 +40,9 @@ class QMSController extends Controller
         $check = Appointment::where([
             ['checked_by', '!=', null],
         ])
-            ->where('checked_by', auth()->user()->id)
+            ->where(function ($q){
+                $q->where('checked_by', auth()->user()->id);
+            })
             ->whereDate('created_at', Carbon::today())
             ->orderBy('qms_no', 'ASC')
             ->first();
