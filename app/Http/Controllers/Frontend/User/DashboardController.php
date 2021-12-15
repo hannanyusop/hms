@@ -17,6 +17,14 @@ class DashboardController
         $doctorPending = AppointmentService::doctorPending();
         $myActive      = AppointmentService::myActive();
 
-        return view('home.dashboard', compact('doctorPending', 'myActive'));
+
+        $count = [
+            'waiting'   => 0,
+            'doctor'    => 0,
+            'pharmacy'  => 0,
+            'completed' => 0
+        ];
+
+        return view('home.dashboard', compact('doctorPending', 'myActive', 'count'));
     }
 }

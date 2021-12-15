@@ -95,7 +95,7 @@
                 </a>
             </li>
         </ul>
-        <a class="sidebar-logout" href="login.html"><span><img src="{{ asset('assets/images/open-account-logout.svg') }}" alt=""></span>Logout</a>
+        <a class="sidebar-logout" href="{{ route('frontend.auth.logout') }}"><span><img src="{{ asset('assets/images/open-account-logout.svg') }}" alt=""></span>Logout</a>
     </div>
     <div class="navbar two-action no-hairline">
         <div class="navbar-inner d-flex align-items-center">
@@ -113,7 +113,7 @@
                 <div class="dropdown-menu dropdown-menu-right header_drop_icon">
                     <a href="doctor-profile.html" class="dropdown-item">My Profile</a>
                     <a href="profile-settings.html" class="dropdown-item">Settings</a>
-                    <a href="login.html" class="dropdown-item">Log Out</a>
+                    <a href="{{ route('frontend.auth.logout') }}" class="dropdown-item">Log Out</a>
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'completed_status',
         'checked_by',
         'pharmacies_id'
     ];
@@ -28,5 +29,9 @@ class Appointment extends Model
 
     public function drugs(){
         return $this->hasMany(AppointmentHasDrug::class, 'appointment_id', 'id');
+    }
+
+    public function bill(){
+        return $this->hasOne(AppointmentHasBill::class, 'appointment_id', 'id');
     }
 }

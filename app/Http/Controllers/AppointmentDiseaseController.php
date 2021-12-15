@@ -9,6 +9,7 @@ use App\Models\AppointmentHasDisease;
 use App\Models\AppointmentHasDrug;
 use App\Models\Disease;
 use App\Models\Drug;
+use App\Services\AppointmentService;
 use Illuminate\Http\Request;
 
 class AppointmentDiseaseController extends Controller{
@@ -17,7 +18,7 @@ class AppointmentDiseaseController extends Controller{
 
         $appointment = Appointment::where([
             'checked_by'       => auth()->user()->id,
-            'completed_status' => 0
+            'completed_status' => AppointmentService::checking
         ])
             ->find(decrypt($appointment_id));
 
@@ -34,7 +35,7 @@ class AppointmentDiseaseController extends Controller{
 
         $appointment = Appointment::where([
             'checked_by'       => auth()->user()->id,
-            'completed_status' => 0
+            'completed_status' => AppointmentService::checking
         ])
             ->find(decrypt($appointment_id));
 

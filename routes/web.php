@@ -28,6 +28,11 @@ Route::group([
     ], function (){
         Route::get('check/{id}', [AppointmentController::class, 'check'])->name('check');
         Route::get('checkCompleted/{id}', [AppointmentController::class, 'checkCompleted'])->name('checkCompleted');
+
+        Route::get('pharmacy/{id}', [AppointmentController::class, 'pharmacy'])->name('pharmacy');
+        Route::post('pharmacy/{id}', [AppointmentController::class, 'pharmacyCompleted'])->name('pharmacyCompleted');
+
+        Route::get('receipt/{id}', [AppointmentController::class, 'receipt'])->name('receipt');
     });
 
 
@@ -62,6 +67,8 @@ Route::group([
         Route::get('delete/{id}', [AppointmentDiseaseController::class, 'destroy'])->name('delete');
 
     });
+
+    Route::resource('patient', PatientController::class);
 
 });
 

@@ -9,12 +9,18 @@ use Illuminate\Support\Str;
 
 class AppointmentService
 {
+    const pending = 0,checking =1,done_checking =2, pharmacy = 3,completed =4;
     public static function myActive(){
 
-        return Appointment::where([
-            'checked_by' => auth()->user()->id
-        ])
-            ->whereDate('created_at', Carbon::today())
+        return Appointment::whereDate('created_at', Carbon::today())
+            ->when(auth()->user()->role == UserService::doctor, function ($q){
+                $q->where('checked_by', auth()->user()->id)
+                    ->where('completed_status', AppointmentService::checking);
+            })
+            ->when(auth()->user()->role == UserService::pharmacy, function ($q){
+                $q->where('pharmacies_id', auth()->user()->id)
+                    ->where('completed_status', AppointmentService::pharmacy);
+            })
             ->orderBy('qms_no', 'ASC')
             ->get();
 

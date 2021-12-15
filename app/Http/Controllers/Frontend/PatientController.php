@@ -23,6 +23,7 @@ class PatientController
     }
 
     public function create(){
+
         return view('patient.create');
     }
     public function store(PatientStoreRequest $request){
