@@ -23,15 +23,16 @@
 
 </html>
 
-@extends('layouts.user')
+@extends('layouts.qms')
 
 @section('title', __('QMS'))
 
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-            </iframe>
+{{--            <iframe width="100%" height="400" src="https://www.youtube.com/embed/tgbNymZ7vqY">--}}
+{{--            </iframe>--}}
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/Ji0TR6Q-V-U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="col-md-4">
             <div class="box bg-info">
@@ -39,13 +40,13 @@
                     <div class="p-15 text-center">
                         <div class="vertical-align-middle">
                             <div class="fs-40" id="clock"></div>
-                            <div class="fs-20">City, Country</div>
+                            <div class="fs-20">Limbang, Sarawak</div>
                         </div>
                     </div>
                 </div>
                 <!-- /.box-body -->
             </div>
-            <div class="box box-inverse bg-img" style="background-image: url({{ asset('asset/images/gallery/thumb/9.jpg') }});" data-overlay="5">
+            <div class="box box-inverse bg-img" data-overlay="5">
                 <div class="box-body">
                     <div class="row">
                         <div class="col-6">
@@ -55,7 +56,6 @@
                                         27°
                                         <span class="fs-24">C</span>
                                     </div>
-                                    <div class="mt-3">City, Country</div>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     <div class="fs-40">
                                         <i class="wi-cloudy"></i>
                                     </div>
-                                    <div class="mt-3">20.5.2017</div>
+                                    <div class="mt-3">{{ \Carbon\Carbon::today()->format('d M Y') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
     <div class="row mt-5">
         @foreach($appointments as $appointment)
             <div class="col-md-3">
-                <div class="box bg-primary-light text-center">
+                <div class="box bg-primary text-center">
                     <div class="box-body">
                         <h1 class="box-title fw-600 fs-28">{{ $appointment->qms_format }}</h1>
                         <div class="fw-bold text-success mt-5 mb-10">{{ __('Room :room', ['room' => 2]) }}</div>
@@ -95,15 +95,8 @@
     <script>
 
         $(function(){
-            if ('speechSynthesis' in window)  // To check speech sysntesis is supported in browser or not
-            {
-
-                // To get supported voice list in browser & append to select list
-
-                // On speak button click below function is calling
-                $('#speak').click(function(){
-                });
-
+            if ('speechSynthesis' in window) {
+                $('#speak').click(function(){});
             } else {
                 alert("Your Browser does not support speech synthesis");
             }
