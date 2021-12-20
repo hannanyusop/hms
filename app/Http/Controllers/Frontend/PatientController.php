@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Requests\Patient\PatientStoreRequest;
 use App\Http\Requests\Patient\PatientUpdateRequest;
+use App\Http\Requests\Patient\UpdateHealthRequest;
 use App\Models\Patient;
 use App\Services\PatientService;
 
@@ -19,7 +20,9 @@ class PatientController
 
         $patient = Patient::findOrFail(decrypt($id));
 
-        return view('patient.show', compact('patient'));
+        $active = session('active', 'basic');
+
+        return view('patient.show', compact('patient', 'active'));
     }
 
     public function create(){
@@ -43,6 +46,19 @@ class PatientController
         return redirect()->back()->with('success', __('New patient registered.'));
     }
 
+    public function updateHealth(UpdateHealthRequest $request, $id){
+
+        session(['active' => 'health']);
+
+        $patient = Patient::findOrFail(decrypt($id));
+
+        $patient->allergies_information = $request->allergies_information;
+        $patient->diseases_history      = $request->diseases_history;
+        $patient->save();
+
+        return redirect()->back()->with('success', __('Patient health background updated.'));
+    }
+
     public function edit($id){
 
         $patient = Patient::findOrFail(decrypt($id));
@@ -63,6 +79,8 @@ class PatientController
         $patient->allergies_information = $request->allergies_information;
         $patient->diseases_history      = $request->diseases_history;
         $patient->save();
+
+        session(['active' => 'basic']);
 
         return redirect()->back()->with('success', __('New patient registered.'));
     }

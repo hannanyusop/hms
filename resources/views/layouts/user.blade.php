@@ -46,24 +46,14 @@
                     Appointments
                 </a>
             </li>
+            @if(auth()->user()->role == "nurse")
             <li>
                 <a class="" href="{{ route('patient.index') }}">
                     <span class="material-icons">person</span>
                     My Patients
                 </a>
             </li>
-            <li>
-                <a class="" href="schedule-timings.html">
-                    <span class="material-icons">access_time</span>
-                    Schedule Timings
-                </a>
-            </li>
-            <li>
-                <a class="" href="invoices.html">
-                    <span class="material-icons">insert_drive_file</span>
-                    Invoices
-                </a>
-            </li>
+            @endif
             <li>
                 <a class="" href="{{ route('qms.screen') }}">
                     <span class="material-icons">pages</span>
@@ -71,21 +61,9 @@
                 </a>
             </li>
             <li>
-                <a class="" href="chat.html">
-                    <span class="material-icons">message</span>
-                    Message
-                </a>
-            </li>
-            <li>
                 <a class="" href="profile-settings.html">
                     <span class="material-icons">settings</span>
                     Profile Settings
-                </a>
-            </li>
-            <li>
-                <a class="" href="social-media.html">
-                    <span class="material-icons">share</span>
-                    Social Media
                 </a>
             </li>
             <li>
@@ -121,38 +99,12 @@
     <div class="page-content pt-0">
         <div class="container">
 
-            <div class="search-tag">
-                <div class="top-title">
-                    <div class="left">
-                        <div class="icon-col">
-                            <img src="{{ asset('assets/images/calender-icon.svg') }}" alt="">
-                        </div>
-                        <div class="text-col">
-                            <h5>@yield('module')</h5>
-                            <span>@yield('title')</span>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="progress-col">
-                            <div class="c100 p35 very-small">
-                                <div class="progress-text">
-                                    <div>
-                                        <b>30</b>
-                                        <sub>Mints</sub>
-                                    </div>
-                                </div>
-                                <div class="slice">
-                                    <div class="bar"></div>
-                                    <div class="fill"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="m-4">
-                @include('includes.partials.messages')
+                <div class="mb-2">
+                    @include('includes.partials.messages')
+                    <br>
+                    <br>
+                </div>
                 @yield('content')
             </div>
         </div>

@@ -28,9 +28,16 @@ class AppointmentController extends Controller
         return view('appointment.today', compact('appointments'));
     }
 
-    public function create(){
+    public function create(Request $request){
 
-        $patients = Patient::pluck('name', 'id');
+
+        $patients = [];
+
+        if($request->search){
+            $patients = Patient::where('card_no', $request->search)
+                ->orWhere('name','LIKE', "%".$request->search."%")
+                ->get();
+        }
 
         return view('appointment.create', compact('patients'));
     }
@@ -92,9 +99,11 @@ class AppointmentController extends Controller
     public function pharmacy($id){
 
         $appointment = Appointment::where([
-            'pharmacies_id'       => auth()->user()->id,
-            'completed_status'    => AppointmentService::pharmacy
+//            'pharmacies_id'       => auth()->user()->id,
+//            'completed_status'    => AppointmentService::done_checking
         ])->find(decrypt($id));
+
+//        dd($appointment);
 
         if(!$appointment){
             return redirect()->back()->with('error', __('Invalid appointment.'));
@@ -106,8 +115,8 @@ class AppointmentController extends Controller
     public function pharmacyCompleted(PharmacyCompletedRequest $request, $id){
 
         $appointment = Appointment::where([
-            'pharmacies_id'       => auth()->user()->id,
-            'completed_status'    => AppointmentService::pharmacy
+//            'pharmacies_id'       => auth()->user()->id,
+//            'completed_status'    => AppointmentService::done_checking
         ])->find(decrypt($id));
 
         if(!$appointment){

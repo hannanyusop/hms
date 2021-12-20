@@ -9,15 +9,27 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\QMSController;
 use App\Http\Controllers\AppointmentDrugController;
 use App\Http\Controllers\AppointmentDiseaseController;
+use App\Http\Controllers\PatientHeirController;
 
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
-
+Route::get('qms/screen', [QMSController::class, 'screen'])->name('qms.screen');
 Route::group([
     'middleware' => ['auth']
 ], function (){
 
     Route::resource('patient', PatientController::class);
+    Route::group([
+        'as' => 'patient.',
+        'prefix' => 'patients/'
+    ], function (){
+        Route::post('updateHealth/{id}', [PatientController::class, 'updateHealth'])->name('updateHealth');
+    });
+
+    Route::resource('heir', PatientHeirController::class);
+    Route::get('heirs/delete/{id}/', [PatientHeirController::class, 'delete'])->name('heir.delete');
+
+
     Route::resource('disease', DiseaseController::class);
     Route::resource('drug', DrugController::class);
 
@@ -41,7 +53,6 @@ Route::group([
         'prefix' => 'qms/'
     ], function (){
 
-        Route::get('screen', [QMSController::class, 'screen'])->name('screen');
         Route::get('doctor-call', [QMSController::class, 'doctorCall'])->name('doctor-call');
         Route::get('pharmacy-call', [QMSController::class, 'pharmacyCall'])->name('pharmacy-call');
         Route::get('recall', [QMSController::class, 'recall'])->name('recall');

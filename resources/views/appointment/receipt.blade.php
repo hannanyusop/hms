@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="page-content profile-settings pt-0">
-        <button class="btn btn-info m-4 float-end" onclick="return printJs()"><i class="fa fa-print"> Print</i></button>
+        <button class="btn btn-info m-4 float-end" id="btn-print"><i class="fa fa-print"> Print</i></button>
         <div class="container inv-section" id="print">
             <div class="top-inv-col">
                 <div class="inv-logo">
@@ -76,13 +76,25 @@
     </div>
 @endsection
 @push('after-scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
     <script>
 
-        function printJs(){
-            var element = document.getElementById('#print');
-            html2pdf(element);
-        }
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+
+        $('#btn-print').click(function () {
+            doc.fromHTML($('#print').html(), 15, 15, {
+                'width': 170,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('sample-file.pdf');
+        });
+
+        // This code is collected but useful, click below to jsfiddle link.
+
     </script>
 @endpush

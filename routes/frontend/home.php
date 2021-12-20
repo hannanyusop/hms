@@ -20,3 +20,8 @@ Route::get('terms', [TermsController::class, 'index'])
         $trail->parent('frontend.index')
             ->push(__('Terms & Conditions'), route('frontend.pages.terms'));
     });
+
+
+Route::resource('home', HomeController::class);
+Route::get('done/{code}', [HomeController::class, 'done'])->name('home.done');
+

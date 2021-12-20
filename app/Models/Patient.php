@@ -27,4 +27,8 @@ class Patient extends Model
         return Carbon::parse($this->dob)->diffInMonths(Carbon::today());
     }
 
+    public function appointments(){
+        return $this->hasMany(Appointment::class, 'patient_id', 'id');
+    }
+
 }

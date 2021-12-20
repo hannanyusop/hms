@@ -6,25 +6,11 @@
     <div class="container">
         <div class="doctor-widget doctor-dashboard">
             <div class="doc-info-left">
-                <div class="doctor-img">
-                    <a class="doctor-img-profile" href="doctor-dashboard.html">
-                        <img src="assets/images/doctors/doctor-02.jpg" class="img-fluid img-circle" alt="User Image">
-                    </a>
-                </div>
                 <div class="doc-info-cont">
-                    <div class="toggle-icon-doctor">
-                        <div class="inner-toggle-icon">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </div>
-                    </div>
-                    <h4 class="doc-name"><a href="doctor-profile.html">{{ auth()->user()->name }}</a></h4>
-                    <p class="doc-speciality">BDS, MDS - Oral &amp; Maxillofacial Surgery</p>
+                    <h4 class="doc-name"><a href="#">Hi, {{ auth()->user()->name }}</a></h4>
                     <div class="doc-info">
                         <div class="rating">
                             <span class="doc-experince">Role : {{ auth()->user()->role }}</span>
-                        </div>
-                        <div class="doc-location">
-                            <p>(<i class="fas fa-map-marker-alt"></i> Florida, USA)</p>
                         </div>
                     </div>
                 </div>
@@ -39,21 +25,12 @@
                             <div>
                                 <span>Patient ID - {{ $active->patient->card_no_format }}</span>
                             </div>
-                            <div>
-                                <span><i class="fas fa-map-marker-alt"></i> Alabama, USA</span>
-                            </div>
                         </div>
                         <div class="pat-info-left">
-                            <div class="patient-img">
-                                <a href="patient-profile.html">
-                                    <img src="assets/images/patients/patient4.jpg" class="img-fluid" alt="User Image">
-                                </a>
-                            </div>
                             <div class="pat-info-cont">
                                 <h4 class="pat-name"><a href="patient-profile.html">{{ $active->patient->name }}</a></h4>
                                 <div class="patient-details-col">
                                     <span>{{ $active->patient->age }}, Female</span>
-                                    <span>Blood Group - B+</span>
                                 </div>
                                 <div class="pat-contact">
                             <span class="icon-phone">

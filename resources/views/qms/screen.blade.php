@@ -1,3 +1,28 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://medical-admin-template.multipurposethemes.com/images/favicon.ico">
+
+    <title>Doclinic - Dashboard</title>
+
+    <!-- Vendors Style-->
+    <link rel="stylesheet" href="{{ asset('asset/css/vendors_css.css') }}">
+
+    <!-- Style-->
+    <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/skin_color.css') }}">
+
+</head>
+
+</html>
+
 @extends('layouts.user')
 
 @section('title', __('QMS'))
@@ -64,8 +89,6 @@
                 </div>
             </div>
         @endforeach
-
-        <button id="speak" class="btn btn-info">Speak</button>
     </div>
 @endsection
 @push('after-scripts')
@@ -86,11 +109,8 @@
             }
         });
 
-        var intervalId = window.setInterval(function(){
+        // textSpeech("0 0 0 1 <break=300> Bilik<break=100> 1")
 
-            textSpeech("0 0 0 1 <break=300> Bilik<break=100> 1")
-
-        }, 5000);
 
         function textSpeech(message){
 
