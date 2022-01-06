@@ -10,6 +10,7 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'room',
         'completed_status',
         'checked_by',
         'pharmacies_id'

@@ -25,6 +25,7 @@ class AppointmentService
             ->get();
 
     }
+
     public static function doctorPending(){
 
         return Appointment::where([
@@ -35,6 +36,7 @@ class AppointmentService
             ->get();
 
     }
+
     public static function getCode(){
 
         do{

@@ -8,11 +8,8 @@
             <div class="doc-info-left">
                 <div class="doc-info-cont">
                     <h4 class="doc-name"><a href="#">Hi, {{ auth()->user()->name }}</a></h4>
-                    <div class="doc-info">
-                        <div class="rating">
-                            <span class="doc-experince">Role : {{ auth()->user()->role }}</span>
-                        </div>
-                    </div>
+                    <span class="text-success font-weight-bold">Role : {{ auth()->user()->role }}</span><br>
+                    <span class="text-info font-weight-bold">Room : {{ session('room', '- Not Set -') }}</span> | <a href="{{ route('qms.setRoom') }}"><i class="fa fa-cogs"></i>  Change</a>
                 </div>
             </div>
         </div>
@@ -47,7 +44,7 @@
                                         </div>
                                     @elseif(auth()->user()->role == \App\Services\UserService::pharmacy)
                                         <div class="status-btn">
-                                            <a href="{{ route('appointment.pharmacy', encrypt($active->patient->id)) }}" class="btn success"><i><img src="{{ asset('assets/images/icon-checkmark.svg') }}" alt=""></i>Generate Invoice</a>
+                                            <a href="{{ route('appointment.pharmacy', encrypt($active->id)) }}" class="btn success"><i><img src="{{ asset('assets/images/icon-checkmark.svg') }}" alt=""></i>Generate Invoice</a>
                                         </div>
                                     @endif
                                         <div class="status-btn">

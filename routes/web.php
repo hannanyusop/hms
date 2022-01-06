@@ -52,6 +52,8 @@ Route::group([
         'as' => 'qms.',
         'prefix' => 'qms/'
     ], function (){
+        Route::get('set-room', [QMSController::class, 'setRoom'])->name('setRoom');
+        Route::post('set-room', [QMSController::class, 'saveRoom'])->name('saveRoom');
 
         Route::get('doctor-call', [QMSController::class, 'doctorCall'])->name('doctor-call');
         Route::get('pharmacy-call', [QMSController::class, 'pharmacyCall'])->name('pharmacy-call');

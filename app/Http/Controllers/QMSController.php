@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Qms\SaveRoomRequest;
 use App\Models\Appointment;
 use App\Services\AppointmentService;
 use App\Services\QmsService;
@@ -13,12 +14,32 @@ class QMSController extends Controller
     public function screen(){
 
         $appointments = Appointment::whereDate('created_at', Carbon::today())
-            ->orderBy('qms_no', 'ASC')
-            ->get();
+            ->whereNotIn('completed_status', [AppointmentService::pending, AppointmentService::completed])
+            ->whereDate('created_at', Carbon::today())
+            ->orderBy('updated_at', 'DESC')
+            ->limit(4)->get();
 
         return view('qms.screen', compact('appointments'));
     }
+
+    public function setRoom(){
+
+        $room = session('room', '');
+
+        return view('qms.room', compact('room'));
+    }
+
+    public function saveRoom(SaveRoomRequest $request){
+
+        session()->put('room', $request->room);
+        return redirect()->route('frontend.user.dashboard')->with('success', 'Room set successfully');
+    }
+
     public function doctorCall(){
+
+        if(!\Session::has('room')){
+            return redirect()->route('qms.setRoom')->with('error', 'Please set room first');
+        }
 
         $pending = Appointment::where([
             'checked_by' => auth()->user()->id,
@@ -32,7 +53,8 @@ class QMSController extends Controller
         }
 
         $check = Appointment::where([
-            'checked_by' => null
+            'checked_by' => null,
+            'completed_status' => AppointmentService::pending
         ])
             ->whereDate('created_at', Carbon::today())
             ->orderBy('qms_no', 'ASC')
@@ -43,8 +65,9 @@ class QMSController extends Controller
         }
 
         $check->update([
-            'checked_by' => auth()->user()->id,
-            'completed_status' => AppointmentService::checking
+            'checked_by'       => auth()->user()->id,
+            'completed_status' => AppointmentService::checking,
+            'room'             => session('room')
         ]);
         #qms service calling
         return redirect()->back()->with('success', __('Your patient queue number is :qms', ['qms' => $check->qms_format]));
@@ -76,6 +99,10 @@ class QMSController extends Controller
 
     public function pharmacyCall(){
 
+        if(!\Session::has('room')){
+            return redirect()->route('qms.setRoom')->with('error', 'Please set room first');
+        }
+
         $pending = Appointment::where([
             'pharmacies_id' => auth()->user()->id,
             'completed_status' => AppointmentService::done_checking
@@ -102,7 +129,8 @@ class QMSController extends Controller
 
         $check->update([
             'pharmacies_id' => auth()->user()->id,
-            'completed_status' => AppointmentService::pharmacy
+            'completed_status' => AppointmentService::pharmacy,
+            'room'             => session('room')
         ]);
 
         #qms service calling

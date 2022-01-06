@@ -99,11 +99,9 @@ class AppointmentController extends Controller
     public function pharmacy($id){
 
         $appointment = Appointment::where([
-//            'pharmacies_id'       => auth()->user()->id,
-//            'completed_status'    => AppointmentService::done_checking
+            'pharmacies_id'       => auth()->user()->id,
+            'completed_status'    => AppointmentService::pharmacy
         ])->find(decrypt($id));
-
-//        dd($appointment);
 
         if(!$appointment){
             return redirect()->back()->with('error', __('Invalid appointment.'));
@@ -115,21 +113,24 @@ class AppointmentController extends Controller
     public function pharmacyCompleted(PharmacyCompletedRequest $request, $id){
 
         $appointment = Appointment::where([
-//            'pharmacies_id'       => auth()->user()->id,
-//            'completed_status'    => AppointmentService::done_checking
+            'pharmacies_id'       => auth()->user()->id,
+            'completed_status'    => AppointmentService::pharmacy
         ])->find(decrypt($id));
 
         if(!$appointment){
             return redirect()->back()->with('error', __('Invalid appointment.'));
         }
 
-        foreach ($request->price as $key => $price){
+        if(!is_null($request->price)){
+            foreach ($request->price as $key => $price){
 
-            $ahd = AppointmentHasDrug::find($key);
-            $ahd->after_adjustment = $price;
-            $ahd->qty = $request->qty[$key];
-            $ahd->save();
+                $ahd = AppointmentHasDrug::find($key);
+                $ahd->after_adjustment = $price;
+                $ahd->qty = $request->qty[$key];
+                $ahd->save();
+            }
         }
+
 
         $ahb = new AppointmentHasBill();
         $ahb->code = AppointmentService::getCode();

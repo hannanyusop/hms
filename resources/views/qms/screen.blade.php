@@ -76,7 +76,7 @@
                 <div class="box bg-primary text-center">
                     <div class="box-body">
                         <h1 class="box-title fw-600 fs-28">{{ $appointment->qms_format }}</h1>
-                        <div class="fw-bold text-success mt-5 mb-10">{{ __('Room :room', ['room' => 2]) }}</div>
+                        <div class="fw-bold text-success mt-5 mb-10">{{ __(':room', ['room' => $appointment->room]) }}</div>
                     </div>
                 </div>
             </div>
